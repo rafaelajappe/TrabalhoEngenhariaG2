@@ -2,7 +2,7 @@
 
 Trabalho G2 de Engenharia de Software. Sistema simples para um salão de cabeleireiro cadastrar clientes e marcar horários.
 
-**Integrantes:** Nome 1, Nome 2 e Nome 3
+**Integrantes:** Rafaela Jappe, Jessika Catharina e Augusto Pasetto
 
 ## Banco de dados (SQLite)
 - `clientes`: `id`, `nome`, `telefone`
