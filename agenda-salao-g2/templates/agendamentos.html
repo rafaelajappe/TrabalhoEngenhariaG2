@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>Novo Agendamento</h2>
+  <form action="/agendamentos/novo" method="POST" class="form-row">
+    <select name="cliente_id" required>
+      <option value="">Selecione o cliente...</option>
+      {% for c in clientes %}
+        <option value="{{ c.id }}">{{ c.nome }}</option>
+      {% endfor %}
+    </select>
+    <input type="text" name="servico" placeholder="Serviço (ex: Corte, Escova)" required>
+    <input type="datetime-local" name="data_hora" required>
+    <button type="submit">Agendar</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Agenda de Horários</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Serviço</th>
+        <th>Data e Hora</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for a in agendamentos %}
+      <tr>
+        <form action="/agendamentos/editar/{{ a.id }}" method="POST">
+          <td>
+            <select name="cliente_id" required>
+              {% for c in clientes %}
+                <option value="{{ c.id }}" {% if c.id == a.cliente_id %}selected{% endif %}>{{ c.nome }}</option>
+              {% endfor %}
+            </select>
+          </td>
+          <td><input type="text" name="servico" value="{{ a.servico }}" required></td>
+          <td><input type="datetime-local" name="data_hora" value="{{ a.data_hora }}" required></td>
+          <td>
+            <button type="submit">Alterar</button>
+        </form>
+            <form action="/agendamentos/excluir/{{ a.id }}" method="POST" style="display:inline;">
+              <button type="submit" class="danger">Excluir</button>
+            </form>
+          </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4">Nenhum agendamento marcado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
